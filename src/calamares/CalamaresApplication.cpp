@@ -21,6 +21,7 @@
 #include "CalamaresConfig.h"
 #include "CalamaresWindow.h"
 #include "CalamaresVersion.h"
+#include "GnuCrashHandler.h"
 #include "progresstree/ProgressTreeView.h"
 #include "progresstree/ProgressTreeModel.h"
 
@@ -73,6 +74,13 @@ void
 CalamaresApplication::init()
 {
     cDebug() << "CalamaresApplication thread:" << thread();
+
+    // We need to hook up GnuCrashHandler here.
+    // For overview of signals: http://pubs.opengroup.org/onlinepubs/009696699/basedefs/signal.h.html
+    // Or, see the definitions in signum.h: http://repo-genesis3.cbi.utsa.edu/crossref/ns-sli/usr/include/bits/signum.h.html
+
+    // For crashes, SIGSEGV should be enough.
+    GnuCrashHandler::install( QStringLiteral( "/tmp/cala-bt.txt" ), { SIGSEGV } );
 
     //TODO: Icon loader
     Logger::setupLogfile();

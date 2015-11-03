@@ -10,6 +10,7 @@ set( calamaresSources
     main.cpp
     CalamaresApplication.cpp
     CalamaresWindow.cpp
+    GnuCrashHandler.cpp
 
     progresstree/ProgressTreeDelegate.cpp
     progresstree/ProgressTreeItem.cpp
