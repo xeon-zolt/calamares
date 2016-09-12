@@ -42,6 +42,7 @@
 
 // KPMcore
 #include <kpmcore/core/device.h>
+#include <kpmcore/core/lvmdevice.h>
 #include <kpmcore/core/partition.h>
 #include <kpmcore/backend/corebackend.h>
 #include <kpmcore/backend/corebackendmanager.h>
@@ -154,6 +155,8 @@ PartitionCoreModule::doInit()
 
     CoreBackend* backend = CoreBackendManager::self()->backend();
     QList< Device* > devices = backend->scanDevices( true );
+    for ( auto dev : LvmDevice::scanSystemLVM() )
+        devices.append(dev);
 
     // Remove the device which contains / from the list
     for ( QList< Device* >::iterator it = devices.begin(); it != devices.end(); )
